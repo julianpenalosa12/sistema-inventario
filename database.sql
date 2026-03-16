@@ -21,7 +21,7 @@ create table productos(
  id_producto int auto_increment primary key,
  nombre varchar(100) not null,
  descripcion text,
- precio decimal(10.2) not null,
+ precio decimal(10,2) not null,
  stock int not null,
  id_categoria int,
  foreign key (id_categoria) references categorias(id_categoria)
@@ -45,6 +45,11 @@ create table logs(
  id_usuario int,
  foreign key (id_usuario) references usuarios(id_usuario)
 );
+
+select*from usuarios;
+
+insert into usuarios(nombre,email,password,rol)
+values('Admin','admin@test.com','1234','admin')
 
 
 

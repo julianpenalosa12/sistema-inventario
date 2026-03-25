@@ -47,7 +47,7 @@ def eliminar_usuario(id):
 
     return redirect(url_for('usuarios.listar_usuarios'))
 
-    # MOSTRAR FORMULARIO DE EDICIÓN
+# MOSTRAR FORMULARIO DE EDICIÓN
 @usuario_bp.route('/usuarios/editar/<int:id>')
 def mostrar_editar_usuario(id):
 

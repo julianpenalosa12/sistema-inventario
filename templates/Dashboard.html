@@ -2,12 +2,13 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Usuarios</title>
+<title>Dashboard</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
 <style>
-/* Sidebar */
 .sidebar {
     height: 100vh;
     width: 250px;
@@ -30,7 +31,6 @@
     background-color: #343a40;
 }
 
-/* Contenido */
 .content {
     margin-left: 0;
     transition: 0.3s;
@@ -50,110 +50,86 @@
     z-index: 1000;
 }
 </style>
-
 </head>
 
-<body>
+<body class="bg-light">
 
-<!--navbar -->
 <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
-        
+
         <!-- Botón menú -->
         <button id="menuBtn" class="btn btn-outline-light" onclick="toggleSidebar()">
-        ☰
+            ☰
         </button>
 
-        <!-- Nombre app -->
+        <!-- Nombre -->
         <span class="navbar-brand mb-0 h1">SIWI</span>
+
+        <!-- Logout -->
+        <a href="/logout" class="btn btn-danger btn-sm">Cerrar sesión</a>
 
     </div>
 </nav>
 
-<!-- 📂 SIDEBAR -->
 <div id="sidebar" class="sidebar">
 
     <a href="/dashboard">🏠 Inicio</a>
-    <a href="/usuarios">👤 Gestionar Usuarios</a>
-    <a href="#">📦 Productos</a>
-    <a href="#">📊 Reportes</a>
+
+    {% if usuario.rol == 'admin' %}
+        <a href="/usuarios">👤 Gestionar Usuarios</a>
+        <a href="#">📦 Productos</a>
+        <a href="#">📊 Reportes</a>
+    {% endif %}
+
+    {% if usuario.rol == 'usuario' %}
+        <a href="#">👁 Ver Productos</a>
+    {% endif %}
+
     <a href="/logout">🚪 Cerrar sesión</a>
 
 </div>
 
-<!-- 📄 CONTENIDO -->
 <div id="content" class="content">
+<div class="container mt-5">
 
-<div class="container mt-4">
-
-<h2>Gestión de Usuarios</h2>
-
-<form action="/usuarios/crear" method="POST" class="row g-3">
-
-<div class="col-md-3">
-<input type="text" name="nombre" class="form-control" placeholder="Nombre">
-</div>
-
-<div class="col-md-3">
-<input type="email" name="email" class="form-control" placeholder="Email">
-</div>
-
-<div class="col-md-3">
-<input type="password" name="password" class="form-control" placeholder="Contraseña">
-</div>
-
-<div class="col-md-2">
-<select name="rol" class="form-select">
-<option value="admin">Admin</option>
-<option value="usuario">Usuario</option>
-</select>
-</div>
-
-<div class="col-md-1">
-<button class="btn btn-primary">Crear</button>
-</div>
-
-</form>
+<h2>Bienvenido, {{usuario.nombre}}</h2>
+<p class="text-muted">Rol: {{usuario.rol}}</p>
 
 <hr>
 
-<table class="table table-striped">
+<div class="row">
 
-<thead>
-<tr>
-<th>ID</th>
-<th>Nombre</th>
-<th>Email</th>
-<th>Rol</th>
-<th>Acciones</th>
-</tr>
-</thead>
+{% if usuario.rol == 'admin' %}
 
-<tbody>
+<div class="col-md-4">
+<div class="card shadow text-center p-3">
+<h5><i class="bi bi-people"></i> Usuarios</h5>
+<a href="/usuarios" class="btn btn-primary">Gestionar</a>
+</div>
+</div>
 
-{% for u in usuarios %}
-<tr>
-<td>{{u.id_usuario}}</td>
-<td>{{u.nombre}}</td>
-<td>{{u.email}}</td>
-<td>{{u.rol}}</td>
+<div class="col-md-4">
+<div class="card shadow text-center p-3">
+<h5><i class="bi bi-box"></i> Productos</h5>
+<a href="#" class="btn btn-primary">Gestionar</a>
+</div>
+</div>
 
-<td>
-<a class="btn btn-warning btn-sm" href="/usuarios/editar/{{u.id_usuario}}">Editar</a>
-<a class="btn btn-danger btn-sm" href="/usuarios/eliminar/{{u.id_usuario}}">Eliminar</a>
-</td>
-</tr>
-{% endfor %}
+{% elif usuario.rol == 'usuario' %}
 
-</tbody>
+<div class="col-md-4">
+<div class="card shadow text-center p-3">
+<h5><i class="bi bi-eye"></i> Ver Productos</h5>
+<a href="#" class="btn btn-success">Entrar</a>
+</div>
+</div>
 
-</table>
+{% endif %}
 
 </div>
 
 </div>
-
-
+</div>
 <script>
 function toggleSidebar() {
 
@@ -161,18 +137,15 @@ function toggleSidebar() {
     let content = document.getElementById("content");
     let btn = document.getElementById("menuBtn");
 
-    // Activar/desactivar sidebar
     sidebar.classList.toggle("active");
     content.classList.toggle("active");
 
-    // Cambiar icono
-    if (sidebar.classList.contains("active")) {
+    if (btn.innerHTML.trim() === "☰") {
         btn.innerHTML = "✖";
     } else {
         btn.innerHTML = "☰";
     }
 }
 </script>
-
 </body>
 </html>

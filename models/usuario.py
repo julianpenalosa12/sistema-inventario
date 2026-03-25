@@ -77,3 +77,17 @@ class Usuario:
         conexion.close()
 
         return usuario
+    
+    @staticmethod
+    def obtener_por_email(email):
+
+       conexion = mysql.connector.connect(**db_config)
+       cursor = conexion.cursor(dictionary=True)
+
+       cursor.execute("SELECT * FROM usuarios WHERE email = %s", (email,))
+       usuario = cursor.fetchone()
+
+       cursor.close()
+       conexion.close()
+
+       return usuario

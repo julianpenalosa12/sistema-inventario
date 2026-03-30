@@ -48,6 +48,8 @@ create table logs(
 
 select*from usuarios;
 
+select*from categorias;
+
 insert into usuarios(nombre,email,password,rol)
 values('Admin','admin@test.com','1234','admin')
 

@@ -50,6 +50,7 @@ select*from usuarios;
 
 select*from categorias;
 
+select*from movimientos;
 insert into usuarios(nombre,email,password,rol)
 values('Admin','admin@test.com','1234','admin')
 

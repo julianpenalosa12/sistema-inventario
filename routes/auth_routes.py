@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session
 from models.usuario import Usuario
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
+from models.log import Log
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -20,8 +21,12 @@ def login_post():
 
     if usuario and usuario['password'] == password:
         session['usuario'] = usuario
+        Log.registrar(usuario['id_usuario'], 
+              f"[AUTH] Inicio de sesión - {usuario['email']}")
         return redirect(url_for('auth.dashboard'))
     else:
+        Log.registrar(0, 
+              f"[AUTH] Intento fallido - {email}")
         flash("Correo o contraseña incorrectos", "danger")  
         return redirect(url_for('auth.login'))
 
@@ -39,5 +44,8 @@ def dashboard():
 # Logout
 @auth_bp.route('/logout')
 def logout():
+    id_usuario = session['usuario']['id_usuario']
+    Log.registrar(id_usuario, 
+              "[AUTH] Cierre de sesión")
     session.clear()
     return redirect(url_for('auth.login'))

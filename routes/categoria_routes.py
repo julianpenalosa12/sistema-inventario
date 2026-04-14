@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from models.categoria import Categoria
+from models.log import Log
+from flask import session
 
 categoria_bp = Blueprint('categorias', __name__)
 
@@ -13,15 +15,19 @@ def listar_categorias():
 @categoria_bp.route('/categorias/crear', methods=['POST'])
 def crear_categoria():
     nombre = request.form['nombre']
-    descripcion = request.form['descripcion']
+    descripcion = request.form['descripcion']   
 
     Categoria.crear(nombre, descripcion)
+    Log.registrar(session['usuario']['id_usuario'], 
+                  f"[CATEGORIAS] Creó categoría {nombre}")
     return redirect(url_for('categorias.listar_categorias'))
 
 # ELIMINAR
 @categoria_bp.route('/categorias/eliminar/<int:id>')
 def eliminar_categoria(id):
     Categoria.eliminar(id)
+    Log.registrar(session['usuario']['id_usuario'], 
+                  f"[CATEGORIAS] Eliminó categoría ID {id}")
     return redirect(url_for('categorias.listar_categorias'))
 
 # MOSTRAR EDITAR
@@ -37,4 +43,8 @@ def actualizar_categoria(id):
     descripcion = request.form['descripcion']
 
     Categoria.actualizar(id, nombre, descripcion)
+
+    Log.registrar(session['usuario']['id_usuario'], 
+                  f"[CATEGORIAS] Editó categoría ID {id}")
+
     return redirect(url_for('categorias.listar_categorias'))

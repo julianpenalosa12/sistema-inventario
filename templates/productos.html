@@ -73,6 +73,8 @@
     <a href="/usuarios">👤 Usuarios</a>
     <a href="/categorias">📂 Categorías</a>
     <a href="/productos" class="bg-primary">📦 Productos</a>
+    <a href="/movimientos">🔄 Movimientos</a>
+    <a href="/logs">📜 Logs</a>
     <a href="/logout">🚪 Cerrar sesión</a>
 
 </div>
@@ -90,13 +92,13 @@
 
 <div class="card-body">
 
-<!-- 🔍 BUSCADOR -->
+<!-- BUSCADOR -->
 <form method="GET" action="/productos" class="mb-3 d-flex">
 <input type="text" name="buscar" class="form-control me-2" placeholder="Buscar producto...">
 <button class="btn btn-dark">Buscar</button>
 </form>
 
-<!-- ➕ FORMULARIO -->
+<!-- FORMULARIO -->
 <form action="/productos/crear" method="POST" class="row g-3 mb-4">
 
 <div class="col-md-3">
@@ -129,7 +131,7 @@
 
 </form>
 
-<!-- 📋 TABLA -->
+<!-- TABLA -->
 <table class="table table-hover">
 
 <thead class="table-dark">

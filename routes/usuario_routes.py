@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from models.usuario import Usuario
+from models.log import Log
+from flask import session
 
 usuario_bp = Blueprint('usuarios', __name__)
 
@@ -9,6 +11,7 @@ usuario_bp = Blueprint('usuarios', __name__)
 def listar_usuarios():
 
     usuarios = Usuario.obtener_todos()
+    
     return render_template("usuarios.html", usuarios=usuarios)
 
 
@@ -22,6 +25,8 @@ def crear_usuario():
     rol = request.form['rol']
 
     Usuario.crear(nombre, email, password, rol)
+    Log.registrar(session['usuario']['id_usuario'], 
+              f"[USUARIOS] Creó usuario {nombre}")
 
     return redirect(url_for('usuarios.listar_usuarios'))
 
@@ -35,6 +40,8 @@ def editar_usuario(id):
     rol = request.form['rol']
 
     Usuario.actualizar(id, nombre, email, rol)
+    Log.registrar(session['usuario']['id_usuario'], 
+                  f"Editó usuario ID {id}")
 
     return redirect(url_for('usuarios.listar_usuarios'))
 
@@ -44,6 +51,8 @@ def editar_usuario(id):
 def eliminar_usuario(id):
 
     Usuario.eliminar(id)
+    Log.registrar(session['usuario']['id_usuario'], 
+              f"[USUARIOS] Eliminó usuario ID {id}")
 
     return redirect(url_for('usuarios.listar_usuarios'))
 
@@ -65,5 +74,7 @@ def actualizar_usuario(id):
     rol = request.form['rol']
 
     Usuario.actualizar(id, nombre, email, rol)
+    Log.registrar(session['usuario']['id_usuario'], 
+                  f"[USUARIOS] Editó usuario ID {id}")
 
     return redirect(url_for('usuarios.listar_usuarios'))

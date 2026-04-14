@@ -1,6 +1,9 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from models.producto import Producto
 from models.categoria import Categoria
+from models.movimiento import Movimiento
+from flask import session
+from models.log import Log
 
 producto_bp = Blueprint('productos', __name__)
 
@@ -14,6 +17,8 @@ def crear_producto():
     id_categoria = request.form['id_categoria']
 
     Producto.crear(nombre, descripcion, precio, stock, id_categoria)
+    Log.registrar(session['usuario']['id_usuario'], 
+              f"[PRODUCTOS] Creó producto {nombre}")
     return redirect(url_for('productos.listar_productos'))
 
 
@@ -21,6 +26,9 @@ def crear_producto():
 @producto_bp.route('/productos/eliminar/<int:id>')
 def eliminar_producto(id):
     Producto.eliminar(id)
+    Log.registrar(session['usuario']['id_usuario'], 
+                  f"[PRODUCTOS] Eliminó producto ID {id}")
+
     return redirect(url_for('productos.listar_productos'))
 
 
@@ -43,6 +51,8 @@ def actualizar_producto(id):
     id_categoria = request.form['id_categoria']
 
     Producto.actualizar(id, nombre, descripcion, precio, stock, id_categoria)
+    Log.registrar(session['usuario']['id_usuario'], 
+                  f"[PRODUCTOS] Editó producto ID {id}")
     return redirect(url_for('productos.listar_productos'))
 
 @producto_bp.route('/productos')

@@ -68,5 +68,6 @@ def listar_productos():
     categorias = Categoria.obtener_todas()
 
     return render_template("productos.html",
-                           productos=productos,
-                           categorias=categorias)
+                       productos=productos,
+                       categorias=categorias,
+                       usuario=session['usuario'])

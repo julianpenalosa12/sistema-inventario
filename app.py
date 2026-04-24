@@ -6,6 +6,7 @@ from routes.categoria_routes import categoria_bp
 from routes.producto_routes import producto_bp
 from routes.movimiento_routes import movimiento_bp
 from routes.log_routes import log_bp
+from routes.reportes_routes import reporte_bp
 
 app = Flask(__name__)
 
@@ -17,6 +18,7 @@ app.register_blueprint(categoria_bp)
 app.register_blueprint(producto_bp)
 app.register_blueprint(movimiento_bp)
 app.register_blueprint(log_bp)
+app.register_blueprint(reporte_bp)
 
 @app.route("/")
 def inicio():

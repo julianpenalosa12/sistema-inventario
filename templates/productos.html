@@ -70,11 +70,20 @@
 <div id="sidebar" class="sidebar">
 
     <a href="/dashboard">🏠 Inicio</a>
-    <a href="/usuarios">👤 Usuarios</a>
+
+    {% if usuario.rol == 'admin' %}
+        <a href="/usuarios">👤 Usuarios</a>
+    {% endif %}
+
     <a href="/categorias">📂 Categorías</a>
     <a href="/productos" class="bg-primary">📦 Productos</a>
     <a href="/movimientos">🔄 Movimientos</a>
-    <a href="/logs">📜 Logs</a>
+
+    {% if usuario.rol == 'admin' %}
+        <a href="/logs">📜 Logs</a>
+        <a href="/reportes">📊 Reportes</a>
+    {% endif %}
+
     <a href="/logout">🚪 Cerrar sesión</a>
 
 </div>
@@ -98,7 +107,7 @@
 <button class="btn btn-dark">Buscar</button>
 </form>
 
-<!-- FORMULARIO -->
+<!-- FORMULARIO (VISIBLE PARA TODOS) -->
 <form action="/productos/crear" method="POST" class="row g-3 mb-4">
 
 <div class="col-md-3">
@@ -172,9 +181,11 @@
 <td>
 <a class="btn btn-warning btn-sm" href="/productos/editar/{{p.id_producto}}">Editar</a>
 <a class="btn btn-danger btn-sm"
-   href="/productos/eliminar/{{p.id_producto}}"
-   onclick="return confirm('¿Eliminar producto?')">Eliminar</a>
+   href="/productos/eliminar/{{p.id_producto}}">
+Eliminar
+</a>
 </td>
+
 </tr>
 {% endfor %}
 

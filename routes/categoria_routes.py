@@ -8,8 +8,17 @@ categoria_bp = Blueprint('categorias', __name__)
 # LISTAR
 @categoria_bp.route('/categorias')
 def listar_categorias():
+
+    if "usuario" not in session:
+        return redirect("/login")
+
     categorias = Categoria.obtener_todas()
-    return render_template("categorias.html", categorias=categorias)
+
+    return render_template(
+        "categorias.html",
+        categorias=categorias,
+        usuario=session['usuario']
+    )
 
 # CREAR
 @categoria_bp.route('/categorias/crear', methods=['POST'])

@@ -1,4 +1,3 @@
-from flask import Blueprint, render_template, request, redirect, url_for, session
 from models.usuario import Usuario
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 from models.log import Log
@@ -25,8 +24,9 @@ def login_post():
               f"[AUTH] Inicio de sesión - {usuario['email']}")
         return redirect(url_for('auth.dashboard'))
     else:
-        Log.registrar(0, 
-              f"[AUTH] Intento fallido - {email}")
+        if usuario:
+           Log.registrar(usuario['id_usuario'], 
+                      f"[AUTH] Intento fallido - {email}")
         flash("Correo o contraseña incorrectos", "danger")  
         return redirect(url_for('auth.login'))
 

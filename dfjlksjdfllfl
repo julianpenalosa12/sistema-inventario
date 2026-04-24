@@ -1,0 +1,48 @@
+[33mcommit ff98a21dc20165febdf6276e19a158d1473344be[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: julianpenalosa12 <julianpenalosa12@gmail.com>
+Date:   Tue Apr 14 17:02:30 2026 -0500
+
+    Se implemento al sistema web el CRUD de movimientos y logs
+
+[33mcommit 131938a407d8723cd6ab1e73de8840fb52cc28d1[m
+Author: julianpenalosa12 <julianpenalosa12@gmail.com>
+Date:   Mon Mar 30 16:11:53 2026 -0500
+
+    Se añadio los CRUD de categorias y de productos, se modificaron los archivos categoria.py,producto.py,categoria_route.py, producto_route.py, app.py, categorias.html, editar_categoria.html,editar_producto.html,productos.html y se modificaron pocas cosas de las ya creadas
+
+[33mcommit 5e5529e01c8c8dbd579fbeb55de2376e54f4e532[m
+Author: julianpenalosa12 <julianpenalosa12@gmail.com>
+Date:   Tue Mar 24 22:01:49 2026 -0500
+
+    Se añadio todo el tema de login con opciones dependiento cada rol, al iniciar la aplicacion inicia con login o dashcboard y se mejoro el diseño de varias paginas web del sistema
+
+[33mcommit 3d2f9f7d7c20d0ce8bef757dad3b03c2f73a6e3a[m
+Author: julianpenalosa12 <julianpenalosa12@gmail.com>
+Date:   Tue Mar 24 21:35:14 2026 -0500
+
+    Se añadio todo el tema de login con opciones dependiento cada rol y se mejoro el diseño de varias paginas web del sistema
+
+[33mcommit 49835e7e8404222d7118b198386c091a09dce5c6[m
+Author: julianpenalosa12 <julianpenalosa12@gmail.com>
+Date:   Mon Mar 16 11:00:47 2026 -0500
+
+    Se actualizo el arcivo ususario.py, usuario_roues.py, se agrego 2 archuvos html en la carpeta templates llamados usuarios.html y editar_usuario.html, tambien se modifico el archuvo app.py y config.py y por ultimo se modifico el archivo database para comprobar su funcionamiento.
+
+[33mcommit e54aa5ef4aa53e37ae7bebbfd223c4d70b689afd[m
+Merge: 7fbddd6 6acdbdd
+Author: julianpenalosa12 <julianpenalosa12@gmail.com>
+Date:   Mon Mar 9 16:07:13 2026 -0500
+
+    Merge branch 'main' of https://github.com/julianpenalosa12/sistema-inventario
+
+[33mcommit 7fbddd6286ed047f0cbb0f0f7ca7d9c06b673cbf[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: julianpenalosa12 <julianpenalosa12@gmail.com>
+Date:   Mon Mar 9 15:48:11 2026 -0500
+
+    estructura inicial del sistema de inventario y script SQL
+
+[33mcommit 6acdbdd089a7d9d3372452deaf9d976053654e3b[m
+Author: julianpenalosa12 <julianpenalosa12@gmail.com>
+Date:   Mon Mar 2 12:09:01 2026 -0500
+
+    Initial commit

@@ -81,11 +81,13 @@
         <a href="/productos">📦 Productos</a>
         <a href="/movimientos">🔄 Movimientos</a>
         <a href="/logs">📜 Logs</a>
-        <a href="#">📊 Reportes</a>
+        <a href="/reportes">📊 Reportes</a>
     {% endif %}
 
     {% if usuario.rol == 'usuario' %}
         <a href="/productos">👁 Ver Productos</a>
+        <a href="/categorias">🏷 Gestionar Categorías</a>
+        <a href="/productos">📦 Productos</a>
     {% endif %}
 
     <a href="/logout">🚪 Cerrar sesión</a>
@@ -139,12 +141,33 @@
 </div>
 </div>
 
+<div class="col-md-4">
+<div class="card shadow text-center p-3">
+<h5> Reportes</h5>
+<a href="/reportes" class="btn btn-primary">ver</a>
+</div>
+</div>
+
 {% elif usuario.rol == 'usuario' %}
 
 <div class="col-md-4">
 <div class="card shadow text-center p-3">
-<h5><i class="bi bi-eye"></i> Ver Productos</h5>
-<a href="#" class="btn btn-success">Entrar</a>
+<h5><i class="bi bi-tags"></i> Categorías</h5>
+<a href="/categorias" class="btn btn-primary">Gestionar</a>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="card shadow text-center p-3">
+<h5><i class="bi bi-box"></i> Productos</h5>
+<a href="/productos" class="btn btn-primary">Gestionar</a>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="card shadow text-center p-3">
+<h5>🔄 Movimientos</h5>
+<a href="/movimientos" class="btn btn-primary">Gestionar</a>
 </div>
 </div>
 

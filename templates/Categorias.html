@@ -72,17 +72,27 @@
 <div id="sidebar" class="sidebar">
 
     <a href="/dashboard">🏠 Inicio</a>
-    <a href="/usuarios">👤 Gestionar Usuarios</a>
-    <a href="/categorias">🏷 Gestionar Categorías</a>
-    <a href="/productos">📦Gestionar Productos</a>
-    <a href="/movimientos">🔄 Movimientos</a>
-    <a href="/logs">📜 Logs</a>
-    <a href="#">📊 Reportes</a>
+
+    {% if usuario.rol == 'admin' %}
+        <a href="/usuarios">👤 Gestionar Usuarios</a>
+        <a href="/categorias">🏷 Gestionar Categorías</a>
+        <a href="/productos">📦 Gestionar Productos</a>
+        <a href="/movimientos">🔄 Movimientos</a>
+        <a href="/logs">📜 Logs</a>
+        <a href="/reportes">📊 Reportes</a>
+    {% endif %}
+
+    {% if usuario.rol == 'usuario' %}
+        <a href="/categorias">🏷 Categorías</a>
+        <a href="/productos">📦 Productos</a>
+        <a href="/movimientos">🔄 Movimientos</a>
+    {% endif %}
+
     <a href="/logout">🚪 Cerrar sesión</a>
 
 </div>
 
-<!--  CONTENIDO -->
+<!-- CONTENIDO -->
 <div id="content" class="content">
 
 <div class="container mt-4">
@@ -95,7 +105,8 @@
 
 <div class="card-body">
 
-<!-- FORMULARIO -->
+<!-- FORMULARIO (solo admin) -->
+{% if usuario.rol == 'admin' %}
 <form action="/categorias/crear" method="POST" class="row g-3 mb-4">
 
 <div class="col-md-4">
@@ -111,6 +122,7 @@
 </div>
 
 </form>
+{% endif %}
 
 <!-- TABLA -->
 <table class="table table-hover">
@@ -120,7 +132,11 @@
 <th>ID</th>
 <th>Nombre</th>
 <th>Descripción</th>
+
+{% if usuario.rol == 'admin' %}
 <th>Acciones</th>
+{% endif %}
+
 </tr>
 </thead>
 
@@ -132,6 +148,7 @@
 <td>{{c.nombre}}</td>
 <td>{{c.descripcion}}</td>
 
+{% if usuario.rol == 'admin' %}
 <td>
 <a class="btn btn-warning btn-sm" href="/categorias/editar/{{c.id_categoria}}">
 Editar
@@ -143,6 +160,7 @@ Editar
 Eliminar
 </a>
 </td>
+{% endif %}
 
 </tr>
 {% endfor %}
@@ -169,11 +187,7 @@ function toggleSidebar() {
     sidebar.classList.toggle("active");
     content.classList.toggle("active");
 
-    if (sidebar.classList.contains("active")) {
-        btn.innerHTML = "✖";
-    } else {
-        btn.innerHTML = "☰";
-    }
+    btn.innerHTML = sidebar.classList.contains("active") ? "✖" : "☰";
 }
 </script>
 

@@ -17,8 +17,9 @@ def listar_movimientos():
     productos = Producto.obtener_todos()
 
     return render_template("movimientos.html",
-                           movimientos=movimientos,
-                           productos=productos)
+                       movimientos=movimientos,
+                       productos=productos,
+                       usuario=session['usuario']) 
 
 
 # CREAR
@@ -28,9 +29,10 @@ def crear_movimiento():
     id_producto = request.form['id_producto']
     tipo = request.form['tipo']
     cantidad = int(request.form['cantidad'])
+    precio = float(request.form['precio'])   
     id_usuario = session["usuario"]["id_usuario"]
 
-    resultado = Movimiento.crear(id_producto, tipo, cantidad, id_usuario)
+    resultado = Movimiento.crear(id_producto, tipo, cantidad, precio, id_usuario)
     producto = Producto.obtener_por_id(id_producto)
     nombre_producto = producto['nombre']
     print("DEBUG:", nombre_producto)  

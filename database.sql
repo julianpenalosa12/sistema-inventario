@@ -54,5 +54,21 @@ select*from movimientos;
 insert into usuarios(nombre,email,password,rol)
 values('Admin','admin@test.com','1234','admin')
 
+ALTER TABLE movimientos
+ADD COLUMN precio_unitario DECIMAL(10,2);
 
+UPDATE movimientos
+SET precio_unitario = 0 
+WHERE precio_unitario IS NULL AND id_movimiento > 0; 
+
+SELECT tipo_movimiento, cantidad, precio_unitario 
+FROM movimientos;
+
+SELECT p.nombre, SUM(m.cantidad) as total
+FROM movimientos m
+JOIN productos p ON m.id_producto = p.id_producto
+WHERE m.tipo_movimiento = 'salida'
+GROUP BY p.nombre
+ORDER BY total DESC
+LIMIT 1
 

@@ -14,20 +14,15 @@ def ver_reportes():
     fecha_fin = request.args.get('fecha_fin')
     tipo = request.args.get('tipo')
     producto = request.args.get('producto')
-
-    # 📊 Movimientos filtrados
+    
     movimientos = Movimiento.obtener_filtrado(fecha_inicio, fecha_fin, tipo, producto)
-
-    # 💰 Resumen financiero
+    
     resumen = Movimiento.obtener_resumen_dinero(fecha_inicio, fecha_fin)
-
-    # 📈 Datos gráfica
+    
     grafica = Movimiento.obtener_datos_grafica(fecha_inicio, fecha_fin)
 
-    # 📊 Métricas
     metricas = Movimiento.obtener_metricas(fecha_inicio, fecha_fin)
 
-    # ⚠️ Alertas
     alertas = Movimiento.obtener_alertas()
 
     return render_template("reportes.html",

@@ -8,7 +8,6 @@ class Movimiento:
         conexion = mysql.connector.connect(**db_config)
         cursor = conexion.cursor()
 
-          # 🔥 PRECIO AUTOMÁTICO DESDE PRODUCTO
         cursor.execute("SELECT precio FROM productos WHERE id_producto = %s", (id_producto,))
         precio = cursor.fetchone()[0]
 
@@ -137,7 +136,6 @@ class Movimiento:
            query += " AND m.tipo_movimiento = %s"
            params.append(tipo)
 
-        # 🔥 NUEVO FILTRO POR PRODUCTO
         if producto:
            query += " AND p.nombre LIKE %s"
            params.append(f"%{producto}%")
@@ -221,7 +219,6 @@ class Movimiento:
         conexion = mysql.connector.connect(**db_config)
         cursor = conexion.cursor(dictionary=True)
 
-        # stock bajo
         cursor.execute("SELECT nombre, stock FROM productos WHERE stock < 5")
         bajos = cursor.fetchall()
 

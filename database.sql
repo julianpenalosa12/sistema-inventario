@@ -72,3 +72,4 @@ GROUP BY p.nombre
 ORDER BY total DESC
 LIMIT 1
 
+SELECT COUNT(*) FROM productos;

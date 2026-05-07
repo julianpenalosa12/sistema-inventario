@@ -2,49 +2,118 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Login</title>
+<title>Login - SIWI</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="icon" href="{{ url_for('static', filename='img/logo.png') }}">
 
 <style>
+
+/* 🔹 Fondo general */
 body {
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: #f4f6f9;
     height: 100vh;
 }
-.card {
-    border-radius: 15px;
+
+/* 🔹 Contenedor principal */
+.login-container {
+    height: 100%;
 }
+
+/* 🔹 Lado izquierdo (branding) */
+.brand-side {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+}
+
+/* 🔹 Animación entrada */
+.fade-in {
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 🔹 Botón efecto */
+.btn-primary {
+    transition: 0.2s;
+}
+
+.btn-primary:hover {
+    transform: scale(1.03);
+}
+
+/* 🔹 Sombra limpia */
+.login-card {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.login-form-dark {
+    background-color: #1f2937;
+}
+
+.login-form-dark input {
+    background-color: #374151;
+    border: none;
+    color: white;
+}
+
+.login-form-dark input::placeholder {
+    color: #ccc;
+}
+
 </style>
 
 </head>
 
-<body class="d-flex justify-content-center align-items-center">
+<body>
 
-<div class="col-md-4">
+<div class="container login-container d-flex align-items-center justify-content-center">
 
-<div class="card shadow-lg p-4">
+<div class="row shadow-lg login-card w-100 fade-in" style="max-width: 900px; min-height: 500px;">
 
-<h3 class="text-center mb-4">Sistema de Inventario</h3>
+    <!-- 🔹 IZQUIERDA: LOGO -->
+    <div class="col-md-6 d-flex flex-column justify-content-center align-items-center brand-side">
 
-{% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    {% for category, message in messages %}
-      <div class="alert alert-{{category}} text-center">
-        {{ message }}
-      </div>
-    {% endfor %}
-  {% endif %}
-{% endwith %}
+        <img src="{{ url_for('static', filename='img/logo.png') }}" width="120" class="mb-3">
 
-<form method="POST">
+        <h2 class="fw-bold">SIWI</h2>
 
-<input type="email" name="email" class="form-control mb-3" placeholder="Correo" required>
+        <p class="text-center px-4">
+            Sistema Inteligente Web De Control De Inventarios
+        </p>
 
-<input type="password" name="password" class="form-control mb-3" placeholder="Contraseña" required>
+    </div>
 
-<button class="btn btn-primary w-100">Ingresar</button>
+    <!-- 🔹 DERECHA: LOGIN -->
+    <div class="col-md-6 p-5 d-flex flex-column justify-content-center login-form-dark text-white">
 
-</form>
+        <h3 class="text-center mb-4">Iniciar Sesión</h3>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{category}} text-center">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+
+            <input type="email" name="email" class="form-control mb-3" placeholder="Correo" required>
+
+            <input type="password" name="password" class="form-control mb-3" placeholder="Contraseña" required>
+
+            <button class="btn btn-primary w-100">Ingresar</button>
+
+        </form>
+
+    </div>
 
 </div>
 

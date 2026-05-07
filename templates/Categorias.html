@@ -5,6 +5,8 @@
 <title>Categorías</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<link rel="icon" href="{{ url_for('static', filename='img/logo.png') }}">
 
 <style>
 .sidebar {
@@ -61,9 +63,11 @@
             ☰
         </button>
 
-        <span class="navbar-brand mb-0 h1">SIWI</span>
+        <span class="navbar-brand mb-0 h1">SIWI - Categorías</span>
 
-        <a href="/logout" class="btn btn-danger btn-sm">Cerrar sesión</a>
+        <a href="/logout" class="btn btn-danger btn-sm">
+            <i class="bi bi-box-arrow-right"></i>
+        </a>
 
     </div>
 </nav>
@@ -71,24 +75,47 @@
 <!-- SIDEBAR -->
 <div id="sidebar" class="sidebar">
 
-    <a href="/dashboard">🏠 Inicio</a>
+    <a href="/dashboard">
+    <i class="bi bi-house-door"></i> Inicio
+    </a>
+
 
     {% if usuario.rol == 'admin' %}
-        <a href="/usuarios">👤 Gestionar Usuarios</a>
-        <a href="/categorias">🏷 Gestionar Categorías</a>
-        <a href="/productos">📦 Gestionar Productos</a>
-        <a href="/movimientos">🔄 Movimientos</a>
-        <a href="/logs">📜 Logs</a>
-        <a href="/reportes">📊 Reportes</a>
+         <a href="/usuarios"><i class="bi bi-people"></i> Usuarios</a>
+        <a href="/categorias">
+    <i class="bi bi-tags"></i> Categorías
+</a>
+
+<a href="/productos">
+    <i class="bi bi-box-seam"></i> Productos
+</a>
+
+<a href="/movimientos">
+    <i class="bi bi-arrow-left-right"></i> Movimientos
+</a>
+        <a href="/logs">
+    <i class="bi bi-journal-text"></i> Logs
+</a>
+
+<a href="/reportes">
+    <i class="bi bi-bar-chart-line"></i> Reportes
+</a>
     {% endif %}
 
     {% if usuario.rol == 'usuario' %}
-        <a href="/categorias">🏷 Categorías</a>
-        <a href="/productos">📦 Productos</a>
-        <a href="/movimientos">🔄 Movimientos</a>
+    <a href="/categorias">
+        <i class="bi bi-tags"></i> Categorías
+</a>
+
+<a href="/productos">
+    <i class="bi bi-box-seam"></i> Productos
+</a>
+
+<a href="/movimientos">
+    <i class="bi bi-arrow-left-right"></i> Movimientos
+</a>
     {% endif %}
 
-    <a href="/logout">🚪 Cerrar sesión</a>
 
 </div>
 

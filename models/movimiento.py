@@ -8,28 +8,38 @@ class Movimiento:
         conexion = mysql.connector.connect(**db_config)
         cursor = conexion.cursor()
 
-        cursor.execute("SELECT precio FROM productos WHERE id_producto = %s", (id_producto,))
-        precio = cursor.fetchone()[0]
+        # Validar precio
+        if precio is None or precio == "":
+           precio = 0
 
+        # Validar stock si es salida
         if tipo == "salida":
-            cursor.execute("SELECT stock FROM productos WHERE id_producto = %s", (id_producto,))
-            stock_actual = cursor.fetchone()[0]
+           cursor.execute("SELECT stock FROM productos WHERE id_producto = %s", (id_producto,))
+           stock_actual = cursor.fetchone()[0]
 
-            if cantidad > stock_actual:
-                conexion.close()
-                return False
+           if cantidad > stock_actual:
+              conexion.close()
+              return False
 
+        # INSERTAR movimiento (precio REAL del momento)
         cursor.execute("""
-        INSERT INTO movimientos (id_producto, tipo_movimiento, cantidad, precio_unitario, id_usuario)
-        VALUES (%s, %s, %s, %s, %s)
+          INSERT INTO movimientos (id_producto, tipo_movimiento, cantidad, precio_unitario, id_usuario)
+          VALUES (%s, %s, %s, %s, %s)
         """, (id_producto, tipo, cantidad, precio, id_usuario))
 
+        # Actualizar stock
         if tipo == "entrada":
-            cursor.execute("UPDATE productos SET stock = stock + %s WHERE id_producto = %s",
-                           (cantidad, id_producto))
+           cursor.execute("""
+               UPDATE productos 
+               SET stock = stock + %s 
+               WHERE id_producto = %s
+            """, (cantidad, id_producto))
         else:
-            cursor.execute("UPDATE productos SET stock = stock - %s WHERE id_producto = %s",
-                           (cantidad, id_producto))
+            cursor.execute("""
+               UPDATE productos 
+               SET stock = stock - %s 
+               WHERE id_producto = %s
+            """, (cantidad, id_producto))
 
         conexion.commit()
         cursor.close()
